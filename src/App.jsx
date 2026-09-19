@@ -252,8 +252,17 @@ function CreateGift({ onBack }) {
   const [recipientName, setRecipientName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [recipientPhone, setRecipientPhone] = useState("");
+  const [giftAmount, setGiftAmount] = useState("");
+  const [customAmount, setCustomAmount] = useState("");
 
-  const canContinue = recipientName.trim().length > 0;
+  const presetAmounts = [100, 500, 1000, 2500];
+
+  const finalAmount =
+    giftAmount === "custom" ? customAmount : giftAmount;
+
+  const canContinueAmount =
+    finalAmount !== "" &&
+    Number(finalAmount) > 0;
 
   return (
     <motion.main
@@ -280,7 +289,8 @@ function CreateGift({ onBack }) {
       </div>
 
       <AnimatePresence mode="wait">
-        {step === 1 ? (
+        {/* STEP 1 */}
+        {step === 1 && (
           <motion.div
             key="occasion"
             className="create-content"
@@ -301,7 +311,8 @@ function CreateGift({ onBack }) {
 
             <div className="create-occasions">
               {occasions.map((occasion) => {
-                const isSelected = selectedOccasion === occasion.name;
+                const isSelected =
+                  selectedOccasion === occasion.name;
 
                 return (
                   <motion.button
@@ -309,7 +320,9 @@ function CreateGift({ onBack }) {
                       isSelected ? "selected" : ""
                     }`}
                     key={occasion.name}
-                    onClick={() => setSelectedOccasion(occasion.name)}
+                    onClick={() =>
+                      setSelectedOccasion(occasion.name)
+                    }
                     whileHover={{ y: -4 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -339,7 +352,10 @@ function CreateGift({ onBack }) {
               </button>
             </div>
           </motion.div>
-        ) : (
+        )}
+
+        {/* STEP 2 */}
+        {step === 2 && (
           <motion.div
             key="recipient"
             className="create-content"
@@ -365,38 +381,51 @@ function CreateGift({ onBack }) {
               <label>
                 Recipient name
                 <span>*</span>
+
                 <input
                   type="text"
                   placeholder="e.g. Rahul"
                   value={recipientName}
-                  onChange={(e) => setRecipientName(e.target.value)}
+                  onChange={(e) =>
+                    setRecipientName(e.target.value)
+                  }
                 />
               </label>
 
               <label>
                 Email <small>optional</small>
+
                 <input
                   type="email"
                   placeholder="rahul@example.com"
                   value={recipientEmail}
-                  onChange={(e) => setRecipientEmail(e.target.value)}
+                  onChange={(e) =>
+                    setRecipientEmail(e.target.value)
+                  }
                 />
               </label>
 
               <label>
                 Phone number <small>optional</small>
+
                 <input
                   type="tel"
                   placeholder="+91 98765 43210"
                   value={recipientPhone}
-                  onChange={(e) => setRecipientPhone(e.target.value)}
+                  onChange={(e) =>
+                    setRecipientPhone(e.target.value)
+                  }
                 />
               </label>
 
               <div className="share-note">
                 <span>🔗</span>
+
                 <div>
-                  <strong>You can simply share the gift link.</strong>
+                  <strong>
+                    You can simply share the gift link.
+                  </strong>
+
                   <p>
                     Email and phone details are optional in this prototype.
                   </p>
@@ -405,19 +434,147 @@ function CreateGift({ onBack }) {
             </div>
 
             <div className="create-bottom">
-              <button className="back-btn" onClick={() => setStep(1)}>
+              <button
+                className="back-btn"
+                onClick={() => setStep(1)}
+              >
                 ← Back
               </button>
 
               <button
                 className="continue-btn"
-                disabled={!canContinue}
+                disabled={!recipientName.trim()}
                 onClick={() => {
-                  if (canContinue) {
-                    alert(
-                      `Recipient: ${recipientName}\nOccasion: ${selectedOccasion}\nNext step coming next.`
-                    );
-                  }
+                  if (recipientName.trim()) setStep(3);
+                }}
+              >
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* STEP 3 */}
+        {step === 3 && (
+          <motion.div
+            key="amount"
+            className="create-content"
+            initial={{ opacity: 0, x: 25 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -25 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="create-heading">
+              <div className="eyebrow">
+                STEP 3 · {selectedOccasion.toUpperCase()}
+              </div>
+
+              <h2>How much would you like to gift?</h2>
+
+              <p>
+                Choose an amount that feels right for the occasion.
+              </p>
+            </div>
+
+            <div className="gift-context">
+              <span>
+                {occasions.find(
+                  (item) => item.name === selectedOccasion
+                )?.icon}
+              </span>
+
+              <strong>{selectedOccasion}</strong>
+
+              <span className="context-separator">•</span>
+
+              <span>{recipientName}</span>
+            </div>
+
+            <div className="amount-section">
+              <div className="amount-grid">
+                {presetAmounts.map((amount) => {
+                  const selected =
+                    giftAmount === String(amount);
+
+                  return (
+                    <motion.button
+                      key={amount}
+                      className={`amount-card ${
+                        selected ? "selected" : ""
+                      }`}
+                      onClick={() => {
+                        setGiftAmount(String(amount));
+                        setCustomAmount("");
+                      }}
+                      whileHover={{ y: -4 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      ₹{amount.toLocaleString("en-IN")}
+                    </motion.button>
+                  );
+                })}
+
+                <motion.button
+                  className={`amount-card ${
+                    giftAmount === "custom" ? "selected" : ""
+                  }`}
+                  onClick={() => setGiftAmount("custom")}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Custom amount
+                </motion.button>
+              </div>
+
+              {giftAmount === "custom" && (
+                <motion.div
+                  className="custom-amount-box"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <label>
+                    Enter amount
+
+                    <div className="amount-input-wrap">
+                      <span>₹</span>
+
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="e.g. 1500"
+                        value={customAmount}
+                        onChange={(e) =>
+                          setCustomAmount(e.target.value)
+                        }
+                      />
+                    </div>
+                  </label>
+                </motion.div>
+              )}
+
+              <div className="prototype-note">
+                <span>ⓘ</span>
+
+                <p>
+                  This is a prototype. No real payment or investment
+                  transaction will occur.
+                </p>
+              </div>
+            </div>
+
+            <div className="create-bottom">
+              <button
+                className="back-btn"
+                onClick={() => setStep(2)}
+              >
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                disabled={!canContinueAmount}
+                onClick={() => {
+                  if (canContinueAmount) setStep(4);
                 }}
               >
                 Continue <span>→</span>

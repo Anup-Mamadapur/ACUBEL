@@ -966,3 +966,143 @@ h1 span,
   font-size: 0.76rem;
   line-height: 1.5;
 }
+/* STEP 3 — GIFT AMOUNT */
+
+.gift-context {
+  width: fit-content;
+  margin-top: 28px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #9da7b5;
+  font-size: 0.78rem;
+}
+
+.gift-context strong {
+  color: #d8b767;
+}
+
+.context-separator {
+  color: #556171;
+}
+
+.amount-section {
+  width: min(700px, 100%);
+  margin-top: 42px;
+}
+
+.amount-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.amount-card {
+  min-height: 105px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #d7dce4;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.amount-card:hover {
+  background: rgba(224, 184, 95, 0.045);
+  border-color: rgba(224, 184, 95, 0.3);
+}
+
+.amount-card.selected {
+  border-color: #e0b85f;
+  background: rgba(224, 184, 95, 0.09);
+  color: #f1e3c3;
+  box-shadow: 0 0 0 1px rgba(224, 184, 95, 0.13);
+}
+
+.custom-amount-box {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid rgba(224, 184, 95, 0.12);
+  border-radius: 18px;
+  background: rgba(224, 184, 95, 0.035);
+}
+
+.custom-amount-box label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #bdc5cf;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.amount-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  overflow: hidden;
+}
+
+.amount-input-wrap span {
+  padding-left: 16px;
+  color: #d8b767;
+  font-weight: 700;
+}
+
+.amount-input-wrap input {
+  width: 100%;
+  padding: 15px 14px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f5f2eb;
+  font-size: 1rem;
+}
+
+.amount-input-wrap input::placeholder {
+  color: #5f6b7b;
+}
+
+.prototype-note {
+  margin-top: 20px;
+  padding: 15px 17px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #778392;
+}
+
+.prototype-note span {
+  color: #d8b767;
+}
+
+.prototype-note p {
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .amount-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gift-context {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+}
