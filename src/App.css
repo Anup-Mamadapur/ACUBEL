@@ -1250,3 +1250,282 @@ h1 span,
     font-size: 0.98rem;
   }
 }
+/* STEP 5 — PERSONALIZE */
+
+.personalize-content {
+  padding-bottom: 50px;
+}
+
+.personalize-layout {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 70px;
+  align-items: start;
+}
+
+.personalize-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.personalize-form label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #c5ccd6;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.personalize-form label > span {
+  color: #dfb55d;
+  margin-left: 3px;
+}
+
+.personalize-form input,
+.personalize-form textarea {
+  width: 100%;
+  padding: 16px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 15px;
+  outline: none;
+  resize: vertical;
+  background: rgba(255, 255, 255, 0.035);
+  color: #f5f2eb;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.personalize-form input::placeholder,
+.personalize-form textarea::placeholder {
+  color: #5f6b7b;
+}
+
+.personalize-form input:focus,
+.personalize-form textarea:focus {
+  border-color: rgba(224, 184, 95, 0.65);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.character-count {
+  align-self: flex-end;
+  margin-top: -3px;
+  color: #667383;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.design-section {
+  margin-top: 3px;
+}
+
+.design-label {
+  margin-bottom: 11px;
+  color: #c5ccd6;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.design-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.design-option {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #8e99a8;
+  font-size: 0.76rem;
+  font-weight: 600;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.design-option:hover {
+  border-color: rgba(224, 184, 95, 0.3);
+  color: #d4d9e0;
+}
+
+.design-option.selected {
+  border-color: #e0b85f;
+  background: rgba(224, 184, 95, 0.09);
+  color: #f0dfba;
+}
+
+.live-preview-wrap {
+  position: sticky;
+  top: 30px;
+}
+
+.preview-label {
+  margin-bottom: 12px;
+  color: #717d8d;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.mini-gift-card {
+  position: relative;
+  min-height: 430px;
+  padding: 30px;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 87% 13%, rgba(255, 255, 255, 0.18), transparent 23%),
+    linear-gradient(145deg, #e3bd69, #9c7430);
+  color: #111821;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.mini-gift-card::after {
+  content: "ACUBEL";
+  position: absolute;
+  right: -5px;
+  bottom: 24px;
+  font-family: "Manrope", sans-serif;
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  opacity: 0.08;
+}
+
+.mini-gift-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.mini-gift-top span:last-child {
+  opacity: 0.62;
+}
+
+.mini-gift-amount {
+  margin-top: 45px;
+  font-family: "Manrope", sans-serif;
+  font-size: 3.4rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.mini-gift-recipient {
+  margin-top: 32px;
+}
+
+.mini-gift-recipient small,
+.mini-gift-investment small {
+  display: block;
+  font-size: 0.57rem;
+  letter-spacing: 0.12em;
+  opacity: 0.58;
+}
+
+.mini-gift-recipient strong {
+  display: block;
+  margin-top: 5px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.18rem;
+}
+
+.mini-gift-occasion {
+  margin-top: 21px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mini-gift-investment {
+  margin-top: 27px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(17, 24, 33, 0.18);
+}
+
+.mini-gift-investment strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.88rem;
+}
+
+.mini-gift-message {
+  margin-top: 28px;
+  max-width: 285px;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.mini-gift-from {
+  position: absolute;
+  left: 30px;
+  bottom: 28px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* DESIGN VARIANTS */
+
+.mini-gift-card.design-birthday {
+  background:
+    radial-gradient(circle at 87% 13%, rgba(255, 255, 255, 0.18), transparent 23%),
+    linear-gradient(145deg, #e9bf75, #a66f2d);
+}
+
+.mini-gift-card.design-celebration {
+  background:
+    radial-gradient(circle at 87% 13%, rgba(255, 255, 255, 0.2), transparent 23%),
+    linear-gradient(145deg, #dcb466, #795a2b);
+}
+
+.mini-gift-card.design-minimal {
+  background:
+    linear-gradient(145deg, #dad5c9, #a8a092);
+  color: #17202b;
+}
+
+@media (max-width: 900px) {
+  .personalize-layout {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .live-preview-wrap {
+    position: static;
+    width: min(480px, 100%);
+  }
+}
+
+@media (max-width: 520px) {
+  .personalize-layout {
+    margin-top: 35px;
+  }
+
+  .mini-gift-card {
+    min-height: 390px;
+    padding: 25px;
+  }
+
+  .mini-gift-amount {
+    font-size: 2.9rem;
+  }
+
+  .mini-gift-from {
+    left: 25px;
+    bottom: 24px;
+  }
+}

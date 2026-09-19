@@ -255,6 +255,9 @@ function CreateGift({ onBack }) {
   const [giftAmount, setGiftAmount] = useState("");
   const [customAmount, setCustomAmount] = useState("");
   const [selectedInvestment, setSelectedInvestment] = useState("");
+  const [senderName, setSenderName] = useState("");
+  const [message, setMessage] = useState("");
+  const [giftDesign, setGiftDesign] = useState("Classic");
 
   const presetAmounts = [100, 500, 1000, 2500];
 
@@ -288,6 +291,10 @@ function CreateGift({ onBack }) {
   const canContinueAmount =
     finalAmount !== "" && Number(finalAmount) > 0;
 
+  const canContinuePersonalize =
+    senderName.trim().length > 0 &&
+    message.trim().length > 0;
+
   return (
     <motion.main
       className="create-gift-page"
@@ -313,7 +320,6 @@ function CreateGift({ onBack }) {
       </div>
 
       <AnimatePresence mode="wait">
-
         {/* STEP 1 — OCCASION */}
         {step === 1 && (
           <motion.div
@@ -326,9 +332,7 @@ function CreateGift({ onBack }) {
           >
             <div className="create-heading">
               <div className="eyebrow">CREATE YOUR GIFT</div>
-
               <h2>What are you celebrating?</h2>
-
               <p>
                 Choose an occasion to make your investment gift feel personal.
               </p>
@@ -723,6 +727,170 @@ function CreateGift({ onBack }) {
                 disabled={!selectedInvestment}
                 onClick={() => {
                   if (selectedInvestment) setStep(5);
+                }}
+              >
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* STEP 5 — PERSONALIZE */}
+        {step === 5 && (
+          <motion.div
+            key="personalize"
+            className="create-content personalize-content"
+            initial={{ opacity: 0, x: 25 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -25 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="create-heading">
+              <div className="eyebrow">
+                STEP 5 · PERSONALIZE
+              </div>
+
+              <h2>Make it personal.</h2>
+
+              <p>
+                Add a message they'll remember.
+              </p>
+            </div>
+
+            <div className="personalize-layout">
+              <div className="personalize-form">
+                <label>
+                  From
+                  <span>*</span>
+
+                  <input
+                    type="text"
+                    placeholder="e.g. Anup"
+                    value={senderName}
+                    onChange={(e) =>
+                      setSenderName(e.target.value)
+                    }
+                  />
+                </label>
+
+                <label>
+                  Message
+                  <span>*</span>
+
+                  <textarea
+                    rows="5"
+                    maxLength="180"
+                    placeholder="Something for your future..."
+                    value={message}
+                    onChange={(e) =>
+                      setMessage(e.target.value)
+                    }
+                  />
+
+                  <div className="character-count">
+                    {message.length} / 180
+                  </div>
+                </label>
+
+                <div className="design-section">
+                  <div className="design-label">
+                    Gift design
+                  </div>
+
+                  <div className="design-options">
+                    {[
+                      "Classic",
+                      "Birthday",
+                      "Celebration",
+                      "Minimal",
+                    ].map((design) => (
+                      <button
+                        key={design}
+                        className={`design-option ${
+                          giftDesign === design ? "selected" : ""
+                        }`}
+                        onClick={() =>
+                          setGiftDesign(design)
+                        }
+                      >
+                        {design}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="live-preview-wrap">
+                <div className="preview-label">
+                  LIVE PREVIEW
+                </div>
+
+                <motion.div
+                  className={`mini-gift-card design-${giftDesign.toLowerCase()}`}
+                  key={giftDesign}
+                  initial={{ opacity: 0.6, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="mini-gift-top">
+                    <span>ACUBEL</span>
+                    <span>INVESTMENT GIFT</span>
+                  </div>
+
+                  <div className="mini-gift-amount">
+                    ₹{Number(finalAmount || 0).toLocaleString("en-IN")}
+                  </div>
+
+                  <div className="mini-gift-recipient">
+                    <small>FOR</small>
+                    <strong>
+                      {recipientName || "Recipient"}
+                    </strong>
+                  </div>
+
+                  <div className="mini-gift-occasion">
+                    {
+                      occasions.find(
+                        (item) => item.name === selectedOccasion
+                      )?.icon
+                    }{" "}
+                    {selectedOccasion || "Occasion"}
+                  </div>
+
+                  <div className="mini-gift-investment">
+                    <small>INVESTMENT</small>
+                    <strong>
+                      {selectedInvestment || "Investment"}
+                    </strong>
+                  </div>
+
+                  <div className="mini-gift-message">
+                    “
+                    {message ||
+                      "Something for your future..."}
+                    ”
+                  </div>
+
+                  <div className="mini-gift-from">
+                    From {senderName || "You"}
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            <div className="create-bottom">
+              <button
+                className="back-btn"
+                onClick={() => setStep(4)}
+              >
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                disabled={!canContinuePersonalize}
+                onClick={() => {
+                  if (canContinuePersonalize) setStep(6);
                 }}
               >
                 Continue <span>→</span>
