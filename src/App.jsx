@@ -1620,6 +1620,7 @@ function RecipientGift({ giftId, onBack }) {
   const [gift, setGift] = useState(null);
   const [claimStep, setClaimStep] = useState(0);
   const [claimEmail, setClaimEmail] = useState("");
+  const [giftOpened, setGiftOpened] = useState(false);
 
   useEffect(() => {
     const savedGift = localStorage.getItem(
@@ -1710,121 +1711,173 @@ function RecipientGift({ giftId, onBack }) {
         {/* GIFT VIEW */}
 
         {claimStep === 0 && (
+  <motion.div
+    key="gift-view"
+    className="claim-layout"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+  >
+    {!giftOpened ? (
+      <motion.div
+        className="gift-reveal-screen"
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div className="eyebrow">
+          YOU RECEIVED SOMETHING SPECIAL
+        </div>
+
+        <h1>
+          A gift has arrived
+          <span> for you.</span>
+        </h1>
+
+        <p>
+          {gift.senderName} sent you an investment
+          gift for your {gift.occasion.toLowerCase()}.
+        </p>
+
+        <motion.button
+          className="gift-envelope"
+          whileHover={{ y: -8, scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => setGiftOpened(true)}
+        >
+          <div className="envelope-flap">
+            ✦
+          </div>
+
+          <div className="envelope-logo">
+            ACUBEL
+          </div>
+
+          <div className="envelope-text">
+            Open your gift
+          </div>
+        </motion.button>
+
+        <p className="recipient-disclaimer">
+          Tap the gift to reveal what's inside.
+        </p>
+      </motion.div>
+    ) : (
+      <motion.div
+        className="claim-revealed-screen"
+        initial={{ opacity: 0, scale: 0.92, y: 25 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.55,
+          ease: "easeOut",
+        }}
+      >
+        <div className="claim-intro">
+          <div className="success-icon">
+            🎁
+          </div>
+
+          <div className="eyebrow">
+            YOUR INVESTMENT GIFT
+          </div>
+
+          <h1>
+            Something meaningful
+            <span> came your way.</span>
+          </h1>
+
+          <p>
+            {gift.senderName} sent you this gift
+            for your {gift.occasion.toLowerCase()}.
+          </p>
+        </div>
+
+        <div className="claim-card-area">
+          <div className="preview-label">
+            YOUR GIFT
+          </div>
+
           <motion.div
-            key="gift-view"
-            className="claim-layout"
+            className={`recipient-gift-card design-${gift.design.toLowerCase()}`}
             initial={{
+              rotateY: 90,
               opacity: 0,
-              y: 20,
             }}
             animate={{
+              rotateY: 0,
               opacity: 1,
-              y: 0,
             }}
-            exit={{
-              opacity: 0,
-              y: -15,
+            transition={{
+              duration: 0.65,
+              delay: 0.15,
             }}
           >
-            <div className="claim-intro">
-              <div className="recipient-icon">
-                🎁
-              </div>
+            <div className="recipient-gift-top">
+              <span>ACUBEL</span>
 
-              <div className="eyebrow">
-                YOU RECEIVED AN INVESTMENT GIFT
-              </div>
-
-              <h1>
-                Something meaningful
-                <span> came your way.</span>
-              </h1>
-
-              <p>
-                {gift.senderName} sent you an investment
-                gift for your{" "}
-                {gift.occasion.toLowerCase()}.
-              </p>
+              <span>
+                INVESTMENT GIFT
+              </span>
             </div>
 
-            <div className="claim-card-area">
-              <div className="preview-label">
-                YOUR GIFT
-              </div>
+            <div className="recipient-gift-amount">
+              ₹
+              {Number(gift.amount).toLocaleString(
+                "en-IN"
+              )}
+            </div>
 
-              <div
-                className={`recipient-gift-card design-${gift.design.toLowerCase()}`}
-              >
-                <div className="recipient-gift-top">
-                  <span>ACUBEL</span>
+            <div className="recipient-gift-for">
+              <small>FOR</small>
 
-                  <span>
-                    INVESTMENT GIFT
-                  </span>
-                </div>
+              <strong>
+                {gift.recipientName}
+              </strong>
+            </div>
 
-                <div className="recipient-gift-amount">
-                  ₹
-                  {Number(
-                    gift.amount
-                  ).toLocaleString(
-                    "en-IN"
-                  )}
-                </div>
+            <div className="recipient-gift-occasion">
+              🎁 {gift.occasion}
+            </div>
 
-                <div className="recipient-gift-for">
-                  <small>FOR</small>
+            <div className="recipient-gift-investment">
+              <small>INVESTMENT</small>
 
-                  <strong>
-                    {gift.recipientName}
-                  </strong>
-                </div>
+              <strong>
+                {gift.investment}
+              </strong>
+            </div>
 
-                <div className="recipient-gift-occasion">
-                  🎁 {gift.occasion}
-                </div>
+            <div className="recipient-gift-message">
+              “{gift.message}”
+            </div>
 
-                <div className="recipient-gift-investment">
-                  <small>
-                    INVESTMENT
-                  </small>
-
-                  <strong>
-                    {gift.investment}
-                  </strong>
-                </div>
-
-                <div className="recipient-gift-message">
-                  “{gift.message}”
-                </div>
-
-                <div className="recipient-gift-from">
-                  From {gift.senderName}
-                </div>
-              </div>
-
-              <motion.button
-                className="recipient-claim-btn"
-                whileHover={{
-                  y: -3,
-                }}
-                whileTap={{
-                  scale: 0.98,
-                }}
-                onClick={startClaim}
-              >
-                Claim Your Gift
-                <span>→</span>
-              </motion.button>
-
-              <p className="recipient-disclaimer">
-                This is an ACUBEL prototype. No
-                real payment, securities transfer,
-                or investment is being processed.
-              </p>
+            <div className="recipient-gift-from">
+              From {gift.senderName}
             </div>
           </motion.div>
-        )}
+
+          <motion.button
+            className="recipient-claim-btn"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={startClaim}
+          >
+            Claim Your Gift
+            <span>→</span>
+          </motion.button>
+
+          <p className="recipient-disclaimer">
+            This is an ACUBEL prototype. No real
+            payment, securities transfer, or investment
+            is being processed.
+          </p>
+        </div>
+      </motion.div>
+    )}
+  </motion.div>
+)}
 
         {/* CLAIM START */}
 
