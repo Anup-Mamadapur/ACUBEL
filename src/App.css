@@ -1106,3 +1106,147 @@ h1 span,
     flex-wrap: wrap;
   }
 }
+/* STEP 4 — INVESTMENT */
+
+.investment-list {
+  width: min(760px, 100%);
+  margin-top: 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.investment-card {
+  width: 100%;
+  padding: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #d7dce4;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.investment-card:hover {
+  border-color: rgba(224, 184, 95, 0.3);
+  background: rgba(224, 184, 95, 0.035);
+}
+
+.investment-card.selected {
+  border-color: #e0b85f;
+  background: rgba(224, 184, 95, 0.08);
+  box-shadow: 0 0 0 1px rgba(224, 184, 95, 0.12);
+}
+
+.investment-icon {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 1.65rem;
+}
+
+.investment-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.investment-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.investment-title-row h3 {
+  font-size: 1.1rem;
+  color: #f1eee7;
+}
+
+.selected-check {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e0b85f;
+  color: #101925;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.investment-category {
+  display: inline-block;
+  margin-top: 6px;
+  color: #d5b667;
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+
+.investment-info p {
+  max-width: 620px;
+  margin-top: 10px;
+  color: #838e9e;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.market-label {
+  display: inline-block;
+  margin-top: 13px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #788595;
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+.investment-disclaimer {
+  width: min(760px, 100%);
+  margin-top: 18px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #778392;
+}
+
+.investment-disclaimer span {
+  color: #d8b767;
+}
+
+.investment-disclaimer p {
+  font-size: 0.73rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 600px) {
+  .investment-card {
+    padding: 17px;
+    gap: 14px;
+  }
+
+  .investment-icon {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+    border-radius: 14px;
+  }
+
+  .investment-title-row h3 {
+    font-size: 0.98rem;
+  }
+}

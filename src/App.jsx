@@ -254,15 +254,39 @@ function CreateGift({ onBack }) {
   const [recipientPhone, setRecipientPhone] = useState("");
   const [giftAmount, setGiftAmount] = useState("");
   const [customAmount, setCustomAmount] = useState("");
+  const [selectedInvestment, setSelectedInvestment] = useState("");
 
   const presetAmounts = [100, 500, 1000, 2500];
+
+  const investments = [
+    {
+      icon: "📈",
+      name: "Nifty 50 ETF",
+      category: "Broad-market ETF",
+      description:
+        "Market-linked investment representing exposure to large Indian companies.",
+    },
+    {
+      icon: "🪙",
+      name: "Gold ETF",
+      category: "Gold ETF",
+      description:
+        "Market-linked investment representing exposure to gold.",
+    },
+    {
+      icon: "🏢",
+      name: "Individual Stock",
+      category: "Individual stock",
+      description:
+        "Choose a company you'd like to gift.",
+    },
+  ];
 
   const finalAmount =
     giftAmount === "custom" ? customAmount : giftAmount;
 
   const canContinueAmount =
-    finalAmount !== "" &&
-    Number(finalAmount) > 0;
+    finalAmount !== "" && Number(finalAmount) > 0;
 
   return (
     <motion.main
@@ -289,7 +313,8 @@ function CreateGift({ onBack }) {
       </div>
 
       <AnimatePresence mode="wait">
-        {/* STEP 1 */}
+
+        {/* STEP 1 — OCCASION */}
         {step === 1 && (
           <motion.div
             key="occasion"
@@ -354,7 +379,7 @@ function CreateGift({ onBack }) {
           </motion.div>
         )}
 
-        {/* STEP 2 */}
+        {/* STEP 2 — RECIPIENT */}
         {step === 2 && (
           <motion.div
             key="recipient"
@@ -454,7 +479,7 @@ function CreateGift({ onBack }) {
           </motion.div>
         )}
 
-        {/* STEP 3 */}
+        {/* STEP 3 — AMOUNT */}
         {step === 3 && (
           <motion.div
             key="amount"
@@ -478,9 +503,11 @@ function CreateGift({ onBack }) {
 
             <div className="gift-context">
               <span>
-                {occasions.find(
-                  (item) => item.name === selectedOccasion
-                )?.icon}
+                {
+                  occasions.find(
+                    (item) => item.name === selectedOccasion
+                  )?.icon
+                }
               </span>
 
               <strong>{selectedOccasion}</strong>
@@ -575,6 +602,127 @@ function CreateGift({ onBack }) {
                 disabled={!canContinueAmount}
                 onClick={() => {
                   if (canContinueAmount) setStep(4);
+                }}
+              >
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* STEP 4 — INVESTMENT */}
+        {step === 4 && (
+          <motion.div
+            key="investment"
+            className="create-content"
+            initial={{ opacity: 0, x: 25 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -25 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="create-heading">
+              <div className="eyebrow">
+                STEP 4 · CHOOSE INVESTMENT
+              </div>
+
+              <h2>What would you like to gift?</h2>
+
+              <p>
+                Choose the investment you'd like to put behind your gift.
+              </p>
+            </div>
+
+            <div className="gift-context">
+              <span>
+                {
+                  occasions.find(
+                    (item) => item.name === selectedOccasion
+                  )?.icon
+                }
+              </span>
+
+              <strong>{selectedOccasion}</strong>
+
+              <span className="context-separator">•</span>
+
+              <span>{recipientName}</span>
+
+              <span className="context-separator">•</span>
+
+              <strong>
+                ₹{Number(finalAmount).toLocaleString("en-IN")}
+              </strong>
+            </div>
+
+            <div className="investment-list">
+              {investments.map((investment) => {
+                const selected =
+                  selectedInvestment === investment.name;
+
+                return (
+                  <motion.button
+                    key={investment.name}
+                    className={`investment-card ${
+                      selected ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      setSelectedInvestment(investment.name)
+                    }
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.99 }}
+                  >
+                    <div className="investment-icon">
+                      {investment.icon}
+                    </div>
+
+                    <div className="investment-info">
+                      <div className="investment-title-row">
+                        <h3>{investment.name}</h3>
+
+                        {selected && (
+                          <span className="selected-check">
+                            ✓
+                          </span>
+                        )}
+                      </div>
+
+                      <span className="investment-category">
+                        {investment.category}
+                      </span>
+
+                      <p>{investment.description}</p>
+
+                      <span className="market-label">
+                        Market-linked
+                      </span>
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            <div className="investment-disclaimer">
+              <span>ⓘ</span>
+
+              <p>
+                Demo choices only. ACUBEL is not recommending any particular
+                investment in this prototype. No real investment will be made.
+              </p>
+            </div>
+
+            <div className="create-bottom">
+              <button
+                className="back-btn"
+                onClick={() => setStep(3)}
+              >
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                disabled={!selectedInvestment}
+                onClick={() => {
+                  if (selectedInvestment) setStep(5);
                 }}
               >
                 Continue <span>→</span>
