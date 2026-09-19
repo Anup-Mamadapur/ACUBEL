@@ -1938,3 +1938,246 @@ h1 span,
     padding-top: 55px;
   }
 }
+/* RECIPIENT GIFT PAGE */
+
+.recipient-page {
+  width: min(1120px, calc(100% - 48px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px 0 50px;
+}
+
+.recipient-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipient-gift-id {
+  color: #697687;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.recipient-layout {
+  min-height: calc(100vh - 150px);
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 85px;
+  align-items: center;
+}
+
+.recipient-intro {
+  max-width: 520px;
+}
+
+.recipient-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: rgba(224, 184, 95, 0.09);
+  border: 1px solid rgba(224, 184, 95, 0.15);
+  font-size: 1.45rem;
+}
+
+.recipient-intro h1 {
+  font-size: clamp(3rem, 5vw, 5rem);
+}
+
+.recipient-intro p {
+  max-width: 470px;
+  margin-top: 25px;
+  color: #929dad;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.recipient-card-area {
+  width: min(500px, 100%);
+  margin-left: auto;
+}
+
+.recipient-gift-card {
+  position: relative;
+  min-height: 520px;
+  padding: 34px;
+  overflow: hidden;
+  border-radius: 30px;
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 255, 255, 0.18),
+      transparent 23%
+    ),
+    linear-gradient(145deg, #e3bd69, #9c7430);
+  color: #111821;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.recipient-gift-card::after {
+  content: "ACUBEL";
+  position: absolute;
+  right: -5px;
+  bottom: 30px;
+  font-family: "Manrope", sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  opacity: 0.07;
+}
+
+.recipient-gift-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.recipient-gift-top span:last-child {
+  opacity: 0.62;
+}
+
+.recipient-gift-amount {
+  margin-top: 58px;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(3.2rem, 6vw, 5rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.recipient-gift-for {
+  margin-top: 44px;
+}
+
+.recipient-gift-for small,
+.recipient-gift-investment small {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  opacity: 0.58;
+}
+
+.recipient-gift-for strong {
+  display: block;
+  margin-top: 6px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.4rem;
+}
+
+.recipient-gift-occasion {
+  margin-top: 22px;
+  font-size: 0.87rem;
+  font-weight: 700;
+}
+
+.recipient-gift-investment {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(17, 24, 33, 0.18);
+}
+
+.recipient-gift-investment strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.93rem;
+}
+
+.recipient-gift-message {
+  max-width: 380px;
+  margin-top: 32px;
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.recipient-gift-from {
+  position: absolute;
+  left: 34px;
+  bottom: 32px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.recipient-claim-btn {
+  width: 100%;
+  margin-top: 17px;
+  padding: 17px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 15px;
+  background: #e0b85f;
+  color: #09111c;
+  font-weight: 800;
+  box-shadow: 0 18px 45px rgba(224, 184, 95, 0.15);
+}
+
+.recipient-claim-btn span {
+  font-size: 1.15rem;
+}
+
+.recipient-disclaimer {
+  margin-top: 13px;
+  color: #667383;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.recipient-back {
+  display: block;
+  margin: 15px auto 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+  .recipient-layout {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 55px;
+    padding: 75px 0 35px;
+  }
+
+  .recipient-intro {
+    max-width: 650px;
+  }
+
+  .recipient-card-area {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .recipient-page {
+    width: min(100% - 28px, 1120px);
+  }
+
+  .recipient-layout {
+    padding-top: 55px;
+  }
+
+  .recipient-gift-card {
+    min-height: 450px;
+    padding: 25px;
+  }
+
+  .recipient-gift-amount {
+    font-size: 3.1rem;
+  }
+
+  .recipient-gift-from {
+    left: 25px;
+    bottom: 24px;
+  }
+}
