@@ -247,7 +247,13 @@ function LandingPage({ onStart }) {
 }
 
 function CreateGift({ onBack }) {
+  const [step, setStep] = useState(1);
   const [selectedOccasion, setSelectedOccasion] = useState("");
+  const [recipientName, setRecipientName] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [recipientPhone, setRecipientPhone] = useState("");
+
+  const canContinue = recipientName.trim().length > 0;
 
   return (
     <motion.main
@@ -262,67 +268,164 @@ function CreateGift({ onBack }) {
           ACUBEL
         </button>
 
-        <div className="step-counter">1 / 6</div>
+        <div className="step-counter">{step} / 6</div>
       </div>
 
       <div className="progress-track">
         <motion.div
           className="progress-fill"
-          initial={{ width: 0 }}
-          animate={{ width: "16.66%" }}
-          transition={{ duration: 0.5 }}
+          animate={{ width: `${(step / 6) * 100}%` }}
+          transition={{ duration: 0.35 }}
         />
       </div>
 
-      <div className="create-content">
-        <div className="create-heading">
-          <div className="eyebrow">CREATE YOUR GIFT</div>
+      <AnimatePresence mode="wait">
+        {step === 1 ? (
+          <motion.div
+            key="occasion"
+            className="create-content"
+            initial={{ opacity: 0, x: 25 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -25 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="create-heading">
+              <div className="eyebrow">CREATE YOUR GIFT</div>
 
-          <h2>What are you celebrating?</h2>
+              <h2>What are you celebrating?</h2>
 
-          <p>
-            Choose an occasion to make your investment gift feel personal.
-          </p>
-        </div>
+              <p>
+                Choose an occasion to make your investment gift feel personal.
+              </p>
+            </div>
 
-        <div className="create-occasions">
-          {occasions.map((occasion) => {
-            const isSelected = selectedOccasion === occasion.name;
+            <div className="create-occasions">
+              {occasions.map((occasion) => {
+                const isSelected = selectedOccasion === occasion.name;
 
-            return (
-              <motion.button
-                className={`create-occasion-card ${
-                  isSelected ? "selected" : ""
-                }`}
-                key={occasion.name}
-                onClick={() => setSelectedOccasion(occasion.name)}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.98 }}
+                return (
+                  <motion.button
+                    className={`create-occasion-card ${
+                      isSelected ? "selected" : ""
+                    }`}
+                    key={occasion.name}
+                    onClick={() => setSelectedOccasion(occasion.name)}
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="create-occasion-icon">
+                      {occasion.icon}
+                    </span>
+
+                    <span>{occasion.name}</span>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            <div className="create-bottom">
+              <button className="back-btn" onClick={onBack}>
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                disabled={!selectedOccasion}
+                onClick={() => {
+                  if (selectedOccasion) setStep(2);
+                }}
               >
-                <span className="create-occasion-icon">{occasion.icon}</span>
-                <span>{occasion.name}</span>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="recipient"
+            className="create-content"
+            initial={{ opacity: 0, x: 25 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -25 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="create-heading">
+              <div className="eyebrow">
+                STEP 2 · {selectedOccasion.toUpperCase()}
+              </div>
 
-      <div className="create-bottom">
-        <button className="back-btn" onClick={onBack}>
-          ← Back
-        </button>
+              <h2>Who are you gifting it to?</h2>
 
-        <button
-          className="continue-btn"
-          disabled={!selectedOccasion}
-          onClick={() =>
-            selectedOccasion &&
-            alert(`Occasion selected: ${selectedOccasion}\nNext step coming next.`)
-          }
-        >
-          Continue <span>→</span>
-        </button>
-      </div>
+              <p>
+                We'll create a gift link that you can share directly with
+                them.
+              </p>
+            </div>
+
+            <div className="recipient-form">
+              <label>
+                Recipient name
+                <span>*</span>
+                <input
+                  type="text"
+                  placeholder="e.g. Rahul"
+                  value={recipientName}
+                  onChange={(e) => setRecipientName(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Email <small>optional</small>
+                <input
+                  type="email"
+                  placeholder="rahul@example.com"
+                  value={recipientEmail}
+                  onChange={(e) => setRecipientEmail(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Phone number <small>optional</small>
+                <input
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={recipientPhone}
+                  onChange={(e) => setRecipientPhone(e.target.value)}
+                />
+              </label>
+
+              <div className="share-note">
+                <span>🔗</span>
+                <div>
+                  <strong>You can simply share the gift link.</strong>
+                  <p>
+                    Email and phone details are optional in this prototype.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="create-bottom">
+              <button className="back-btn" onClick={() => setStep(1)}>
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                disabled={!canContinue}
+                onClick={() => {
+                  if (canContinue) {
+                    alert(
+                      `Recipient: ${recipientName}\nOccasion: ${selectedOccasion}\nNext step coming next.`
+                    );
+                  }
+                }}
+              >
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.main>
   );
 }

@@ -887,3 +887,82 @@ h1 span,
     backdrop-filter: blur(14px);
   }
 }
+/* RECIPIENT FORM */
+
+.recipient-form {
+  width: min(620px, 100%);
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.recipient-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #c5ccd6;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.recipient-form label > span {
+  color: #dfb55d;
+  margin-left: 3px;
+}
+
+.recipient-form small {
+  margin-left: 5px;
+  color: #778393;
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+.recipient-form input {
+  width: 100%;
+  padding: 16px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 15px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.035);
+  color: #f5f2eb;
+  font-size: 0.95rem;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.recipient-form input::placeholder {
+  color: #5f6b7b;
+}
+
+.recipient-form input:focus {
+  border-color: rgba(224, 184, 95, 0.65);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.share-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 18px;
+  border: 1px solid rgba(224, 184, 95, 0.12);
+  border-radius: 16px;
+  background: rgba(224, 184, 95, 0.04);
+}
+
+.share-note > span {
+  font-size: 1.15rem;
+}
+
+.share-note strong {
+  color: #d9dee6;
+  font-size: 0.83rem;
+}
+
+.share-note p {
+  margin-top: 4px;
+  color: #778392;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
