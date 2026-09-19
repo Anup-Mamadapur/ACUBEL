@@ -1529,3 +1529,412 @@ h1 span,
     bottom: 24px;
   }
 }
+/* STEP 6 — PREVIEW & GENERATE */
+
+.final-preview-layout {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(280px, 380px);
+  gap: 65px;
+  align-items: start;
+}
+
+.final-card-wrap {
+  width: 100%;
+}
+
+.final-gift-card {
+  position: relative;
+  min-height: 500px;
+  padding: 34px;
+  overflow: hidden;
+  border-radius: 30px;
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 255, 255, 0.18),
+      transparent 23%
+    ),
+    linear-gradient(145deg, #e3bd69, #9c7430);
+  color: #111821;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.final-gift-card::after {
+  content: "ACUBEL";
+  position: absolute;
+  right: -8px;
+  bottom: 28px;
+  font-family: "Manrope", sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  opacity: 0.07;
+}
+
+.final-gift-card.compact {
+  min-height: 430px;
+}
+
+.final-gift-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.final-gift-top span:last-child {
+  opacity: 0.62;
+}
+
+.final-gift-amount {
+  margin-top: 55px;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(3.2rem, 7vw, 5rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+}
+
+.final-gift-for {
+  margin-top: 42px;
+}
+
+.final-gift-for small,
+.final-gift-investment small {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  opacity: 0.58;
+}
+
+.final-gift-for strong {
+  display: block;
+  margin-top: 5px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.35rem;
+}
+
+.final-gift-occasion {
+  margin-top: 22px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.final-gift-investment {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(17, 24, 33, 0.18);
+}
+
+.final-gift-investment strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.92rem;
+}
+
+.final-gift-message {
+  max-width: 380px;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.final-gift-from {
+  position: absolute;
+  left: 34px;
+  bottom: 32px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.final-gift-card.design-birthday {
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 255, 255, 0.18),
+      transparent 23%
+    ),
+    linear-gradient(145deg, #e9bf75, #a66f2d);
+}
+
+.final-gift-card.design-celebration {
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 255, 255, 0.18),
+      transparent 23%
+    ),
+    linear-gradient(145deg, #dcb466, #795a2b);
+}
+
+.final-gift-card.design-minimal {
+  background:
+    linear-gradient(145deg, #dad5c9, #a8a092);
+}
+
+.final-summary {
+  padding: 27px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.summary-header {
+  margin-bottom: 20px;
+  color: #738091;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.82rem;
+}
+
+.summary-row span {
+  color: #788596;
+}
+
+.summary-row strong {
+  max-width: 60%;
+  color: #d8dde4;
+  text-align: right;
+}
+
+.summary-divider {
+  height: 12px;
+}
+
+.edit-summary-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: #929ead;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.edit-summary-btn:hover {
+  color: #eee9df;
+}
+
+.generate-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 15px;
+  background: #e0b85f;
+  color: #0a121d;
+  font-weight: 700;
+  box-shadow: 0 15px 35px rgba(224, 184, 95, 0.12);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 45px rgba(224, 184, 95, 0.2);
+}
+
+.generate-note {
+  margin-top: 14px;
+  color: #667383;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.generated-state {
+  padding: 80px 0 30px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(224, 184, 95, 0.12);
+  color: #e0b85f;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.generated-state > p {
+  margin-top: 14px;
+  color: #8e9aaa;
+}
+
+.generated-layout {
+  max-width: 900px;
+  margin: 50px auto 0;
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) minmax(280px, 360px);
+  gap: 55px;
+  text-align: left;
+  align-items: center;
+}
+
+.share-panel {
+  padding: 27px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.gift-id-label {
+  color: #758192;
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.gift-id {
+  margin-top: 8px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #e0b85f;
+  letter-spacing: 0.08em;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(224, 184, 95, 0.08);
+  color: #d1ad60;
+  font-size: 0.61rem;
+  font-weight: 700;
+}
+
+.qr-box {
+  width: 180px;
+  height: 180px;
+  margin: 26px auto;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #f4f1e9;
+}
+
+.qr-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gift-link-box {
+  overflow: hidden;
+  padding: 13px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #798596;
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.full-width {
+  margin-top: 14px;
+}
+
+.copy-link-btn {
+  width: 100%;
+  margin-top: 9px;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 13px;
+  background: transparent;
+  color: #929eac;
+  font-size: 0.79rem;
+  font-weight: 600;
+}
+
+.copy-link-btn:hover {
+  border-color: rgba(224, 184, 95, 0.25);
+  color: #ece8df;
+}
+
+.generated-disclaimer {
+  max-width: 700px;
+  margin: 35px auto 0;
+  padding: 14px 17px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  text-align: left;
+}
+
+.generated-disclaimer span {
+  color: #d8b767;
+}
+
+.generated-disclaimer p {
+  color: #778392;
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.generated-back {
+  margin-top: 30px;
+}
+
+@media (max-width: 850px) {
+  .final-preview-layout,
+  .generated-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .final-card-wrap,
+  .generated-layout {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .generated-layout {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 520px) {
+  .final-gift-card {
+    min-height: 430px;
+    padding: 25px;
+  }
+
+  .final-gift-amount {
+    font-size: 3.1rem;
+  }
+
+  .final-gift-from {
+    left: 25px;
+    bottom: 25px;
+  }
+
+  .generated-state {
+    padding-top: 55px;
+  }
+}

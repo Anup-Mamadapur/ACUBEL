@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import QRCode from "qrcode";
 import { motion, AnimatePresence } from "motion/react";
 import "./App.css";
 
@@ -258,6 +259,10 @@ function CreateGift({ onBack }) {
   const [senderName, setSenderName] = useState("");
   const [message, setMessage] = useState("");
   const [giftDesign, setGiftDesign] = useState("Classic");
+  const [giftId, setGiftId] = useState("");
+  const [giftLink, setGiftLink] = useState("");
+  const [qrCodeUrl, setQrCodeUrl] = useState("");
+  const [giftGenerated, setGiftGenerated] = useState(false);
 
   const presetAmounts = [100, 500, 1000, 2500];
 
@@ -294,6 +299,32 @@ function CreateGift({ onBack }) {
   const canContinuePersonalize =
     senderName.trim().length > 0 &&
     message.trim().length > 0;
+
+  const generateGift = async () => {
+  const id =
+    "ACB-" +
+    Math.random()
+      .toString(36)
+      .substring(2, 8)
+      .toUpperCase();
+
+  const link = `${window.location.origin}/gift/${id}`;
+
+  setGiftId(id);
+  setGiftLink(link);
+  setGiftGenerated(true);
+
+  try {
+    const qr = await QRCode.toDataURL(link, {
+      width: 220,
+      margin: 2,
+    });
+
+    setQrCodeUrl(qr);
+  } catch (error) {
+    console.error("QR generation failed:", error);
+  }
+};
 
   return (
     <motion.main
@@ -898,6 +929,276 @@ function CreateGift({ onBack }) {
             </div>
           </motion.div>
         )}
+        {/* STEP 6 — PREVIEW & GENERATE */}
+
+{step === 6 && (
+  <motion.div
+    key="preview"
+    className="create-content preview-content"
+    initial={{ opacity: 0, x: 25 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -25 }}
+    transition={{ duration: 0.25 }}
+  >
+    {!giftGenerated ? (
+      <>
+        <div className="create-heading">
+          <div className="eyebrow">
+            STEP 6 · FINAL CHECK
+          </div>
+
+          <h2>Ready to send your gift?</h2>
+
+          <p>
+            Review everything once before generating your investment gift.
+          </p>
+        </div>
+
+        <div className="final-preview-layout">
+          {/* FINAL GIFT CARD */}
+
+          <div className="final-card-wrap">
+            <div className="preview-label">
+              GIFT PREVIEW
+            </div>
+
+            <div
+              className={`final-gift-card design-${giftDesign.toLowerCase()}`}
+            >
+              <div className="final-gift-top">
+                <span>ACUBEL</span>
+                <span>INVESTMENT GIFT</span>
+              </div>
+
+              <div className="final-gift-amount">
+                ₹{Number(finalAmount).toLocaleString("en-IN")}
+              </div>
+
+              <div className="final-gift-for">
+                <small>FOR</small>
+                <strong>{recipientName}</strong>
+              </div>
+
+              <div className="final-gift-occasion">
+                {
+                  occasions.find(
+                    (item) => item.name === selectedOccasion
+                  )?.icon
+                }{" "}
+                {selectedOccasion}
+              </div>
+
+              <div className="final-gift-investment">
+                <small>INVESTMENT</small>
+                <strong>{selectedInvestment}</strong>
+              </div>
+
+              <div className="final-gift-message">
+                “{message}”
+              </div>
+
+              <div className="final-gift-from">
+                From {senderName}
+              </div>
+            </div>
+          </div>
+
+          {/* SUMMARY */}
+
+          <div className="final-summary">
+            <div className="summary-header">
+              <span>YOUR GIFT</span>
+            </div>
+
+            <div className="summary-row">
+              <span>Occasion</span>
+              <strong>{selectedOccasion}</strong>
+            </div>
+
+            <div className="summary-row">
+              <span>Recipient</span>
+              <strong>{recipientName}</strong>
+            </div>
+
+            <div className="summary-row">
+              <span>Amount</span>
+              <strong>
+                ₹{Number(finalAmount).toLocaleString("en-IN")}
+              </strong>
+            </div>
+
+            <div className="summary-row">
+              <span>Investment</span>
+              <strong>{selectedInvestment}</strong>
+            </div>
+
+            <div className="summary-divider"></div>
+
+            <button
+              className="edit-summary-btn"
+              onClick={() => setStep(1)}
+            >
+              Edit gift
+            </button>
+
+            <button
+              className="generate-btn"
+              onClick={generateGift}
+            >
+              Generate Gift 🎁
+              <span>→</span>
+            </button>
+
+            <p className="generate-note">
+              Prototype only. No real payment or investment transaction will
+              occur.
+            </p>
+          </div>
+        </div>
+
+        <div className="create-bottom">
+          <button
+            className="back-btn"
+            onClick={() => setStep(5)}
+          >
+            ← Back
+          </button>
+        </div>
+      </>
+    ) : (
+      /* GENERATED STATE */
+
+      <motion.div
+        className="generated-state"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div className="success-icon">✓</div>
+
+        <div className="eyebrow">
+          GIFT CREATED
+        </div>
+
+        <h2>Your investment gift is ready.</h2>
+
+        <p>
+          Share the gift link with {recipientName}.
+        </p>
+
+        <div className="generated-layout">
+          <div
+            className={`final-gift-card compact design-${giftDesign.toLowerCase()}`}
+          >
+            <div className="final-gift-top">
+              <span>ACUBEL</span>
+              <span>INVESTMENT GIFT</span>
+            </div>
+
+            <div className="final-gift-amount">
+              ₹{Number(finalAmount).toLocaleString("en-IN")}
+            </div>
+
+            <div className="final-gift-for">
+              <small>FOR</small>
+              <strong>{recipientName}</strong>
+            </div>
+
+            <div className="final-gift-occasion">
+              {
+                occasions.find(
+                  (item) => item.name === selectedOccasion
+                )?.icon
+              }{" "}
+              {selectedOccasion}
+            </div>
+
+            <div className="final-gift-investment">
+              <small>INVESTMENT</small>
+              <strong>{selectedInvestment}</strong>
+            </div>
+
+            <div className="final-gift-message">
+              “{message}”
+            </div>
+
+            <div className="final-gift-from">
+              From {senderName}
+            </div>
+          </div>
+
+          <div className="share-panel">
+            <div className="gift-id-label">
+              GIFT ID
+            </div>
+
+            <div className="gift-id">
+              {giftId}
+            </div>
+
+            <div className="status-badge">
+              ● GIFT CREATED — PROTOTYPE
+            </div>
+
+            {qrCodeUrl && (
+              <div className="qr-box">
+                <img
+                  src={qrCodeUrl}
+                  alt="Gift QR code"
+                />
+              </div>
+            )}
+
+            <div className="gift-link-box">
+              {giftLink}
+            </div>
+
+            <button
+              className="generate-btn full-width"
+              onClick={() => {
+                const text = `I sent you an investment gift through ACUBEL 🎁 ${giftLink}`;
+
+                window.open(
+                  `https://wa.me/?text=${encodeURIComponent(text)}`,
+                  "_blank"
+                );
+              }}
+            >
+              Share on WhatsApp
+              <span>↗</span>
+            </button>
+
+            <button
+              className="copy-link-btn"
+              onClick={async () => {
+                await navigator.clipboard.writeText(giftLink);
+
+                alert("Gift link copied.");
+              }}
+            >
+              Copy Gift Link
+            </button>
+          </div>
+        </div>
+
+        <div className="generated-disclaimer">
+          <span>ⓘ</span>
+
+          <p>
+            This is an ACUBEL prototype. The gift has not resulted in a real
+            payment, securities transfer, or investment.
+          </p>
+        </div>
+
+        <button
+          className="back-btn generated-back"
+          onClick={onBack}
+        >
+          ← Back to ACUBEL
+        </button>
+      </motion.div>
+    )}
+  </motion.div>
+)}
       </AnimatePresence>
     </motion.main>
   );
