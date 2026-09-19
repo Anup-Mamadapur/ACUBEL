@@ -2572,3 +2572,216 @@ h1 span,
 .claim-revealed-screen {
   width: 100%;
 }
+.gift-envelope {
+  animation: giftFloat 3.2s ease-in-out infinite;
+}
+
+.gift-envelope::before,
+.gift-envelope::after {
+  content: "✦";
+  position: absolute;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.gift-envelope::before {
+  top: 28px;
+  left: 32px;
+  animation: sparkleOne 2.5s ease-in-out infinite;
+}
+
+.gift-envelope::after {
+  right: 30px;
+  bottom: 28px;
+  animation: sparkleTwo 3s ease-in-out infinite;
+}
+
+@keyframes giftFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes sparkleOne {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(20deg);
+  }
+}
+
+@keyframes sparkleTwo {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7) rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15) rotate(-20deg);
+  }
+}
+/* ============================= */
+/* CLAIM SUCCESS SCREEN */
+/* ============================= */
+
+.claim-success-screen {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.success-icon {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #c9a227, #f1d477);
+  box-shadow: 0 15px 45px rgba(201, 162, 39, 0.25);
+  margin-bottom: 28px;
+}
+
+.success-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c9a227;
+  margin-bottom: 12px;
+}
+
+.claim-success-screen h1 {
+  font-size: clamp(32px, 6vw, 52px);
+  margin: 0 0 16px;
+}
+
+.success-message {
+  max-width: 500px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+  opacity: 0.75;
+}
+
+.success-investment-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  text-align: left;
+}
+
+.success-investment-card span {
+  opacity: 0.55;
+}
+
+.success-investment-card strong {
+  color: #c9a227;
+}
+
+.success-note {
+  margin-top: 24px;
+  font-size: 14px;
+  opacity: 0.5;
+}
+.success-details-btn {
+  margin-top: 28px;
+  min-width: 220px;
+}
+
+.gift-details-screen {
+  min-height: 70vh;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.gift-details-screen h1 {
+  margin: 0 0 28px;
+  font-size: clamp(32px, 6vw, 48px);
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.65;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  margin-bottom: 50px;
+}
+
+.gift-details-card {
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 8px 24px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span {
+  opacity: 0.55;
+  font-size: 14px;
+}
+
+.detail-row strong {
+  text-align: right;
+}
+
+.claimed-status {
+  color: #c9a227;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .gift-details-card {
+    padding: 8px 18px;
+  }
+
+  .detail-row {
+    align-items: flex-start;
+  }
+
+  .detail-row strong {
+    max-width: 55%;
+    word-break: break-word;
+  }
+}
