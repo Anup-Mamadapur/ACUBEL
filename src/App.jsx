@@ -149,9 +149,7 @@ function LandingPage({ onStart }) {
                 whileHover={{ y: -5 }}
               >
                 <div className="step-number">{number}</div>
-
                 <h3>{title}</h3>
-
                 <p>{text}</p>
               </motion.div>
             ))}
@@ -274,47 +272,21 @@ function LandingPage({ onStart }) {
 function CreateGift({ onBack }) {
   const [step, setStep] = useState(1);
 
-  const [selectedOccasion, setSelectedOccasion] =
-    useState("");
+  const [selectedOccasion, setSelectedOccasion] = useState("");
+  const [recipientName, setRecipientName] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [recipientPhone, setRecipientPhone] = useState("");
+  const [giftAmount, setGiftAmount] = useState("");
+  const [customAmount, setCustomAmount] = useState("");
+  const [selectedInvestment, setSelectedInvestment] = useState("");
+  const [senderName, setSenderName] = useState("");
+  const [message, setMessage] = useState("");
+  const [giftDesign, setGiftDesign] = useState("Classic");
 
-  const [recipientName, setRecipientName] =
-    useState("");
-
-  const [recipientEmail, setRecipientEmail] =
-    useState("");
-
-  const [recipientPhone, setRecipientPhone] =
-    useState("");
-
-  const [giftAmount, setGiftAmount] =
-    useState("");
-
-  const [customAmount, setCustomAmount] =
-    useState("");
-
-  const [selectedInvestment, setSelectedInvestment] =
-    useState("");
-
-  const [senderName, setSenderName] =
-    useState("");
-
-  const [message, setMessage] =
-    useState("");
-
-  const [giftDesign, setGiftDesign] =
-    useState("Classic");
-
-  const [giftId, setGiftId] =
-    useState("");
-
-  const [giftLink, setGiftLink] =
-    useState("");
-
-  const [qrCodeUrl, setQrCodeUrl] =
-    useState("");
-
-  const [giftGenerated, setGiftGenerated] =
-    useState(false);
+  const [giftId, setGiftId] = useState("");
+  const [giftLink, setGiftLink] = useState("");
+  const [qrCodeUrl, setQrCodeUrl] = useState("");
+  const [giftGenerated, setGiftGenerated] = useState(false);
 
   const presetAmounts = [100, 500, 1000, 2500];
 
@@ -431,7 +403,9 @@ function CreateGift({ onBack }) {
           animate={{
             width: `${(step / 6) * 100}%`,
           }}
-          transition={{ duration: 0.35 }}
+          transition={{
+            duration: 0.35,
+          }}
         />
       </div>
 
@@ -443,10 +417,21 @@ function CreateGift({ onBack }) {
           <motion.div
             key="occasion"
             className="create-content"
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -25 }}
-            transition={{ duration: 0.25 }}
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
           >
             <div className="create-heading">
               <div className="eyebrow">
@@ -466,7 +451,8 @@ function CreateGift({ onBack }) {
             <div className="create-occasions">
               {occasions.map((occasion) => {
                 const isSelected =
-                  selectedOccasion === occasion.name;
+                  selectedOccasion ===
+                  occasion.name;
 
                 return (
                   <motion.button
@@ -481,8 +467,12 @@ function CreateGift({ onBack }) {
                         occasion.name
                       )
                     }
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{
+                      y: -4,
+                    }}
+                    whileTap={{
+                      scale: 0.98,
+                    }}
                   >
                     <span className="create-occasion-icon">
                       {occasion.icon}
@@ -506,7 +496,9 @@ function CreateGift({ onBack }) {
 
               <button
                 className="continue-btn"
-                disabled={!selectedOccasion}
+                disabled={
+                  !selectedOccasion
+                }
                 onClick={() => {
                   if (selectedOccasion) {
                     setStep(2);
@@ -525,10 +517,21 @@ function CreateGift({ onBack }) {
           <motion.div
             key="recipient"
             className="create-content"
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -25 }}
-            transition={{ duration: 0.25 }}
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
           >
             <div className="create-heading">
               <div className="eyebrow">
@@ -646,10 +649,21 @@ function CreateGift({ onBack }) {
           <motion.div
             key="amount"
             className="create-content"
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -25 }}
-            transition={{ duration: 0.25 }}
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
           >
             <div className="create-heading">
               <div className="eyebrow">
@@ -693,48 +707,55 @@ function CreateGift({ onBack }) {
 
             <div className="amount-section">
               <div className="amount-grid">
-                {presetAmounts.map((amount) => {
-                  const selected =
-                    giftAmount ===
-                    String(amount);
+                {presetAmounts.map(
+                  (amount) => {
+                    const selected =
+                      giftAmount ===
+                      String(amount);
 
-                  return (
-                    <motion.button
-                      key={amount}
-                      className={`amount-card ${
-                        selected
-                          ? "selected"
-                          : ""
-                      }`}
-                      onClick={() => {
-                        setGiftAmount(
-                          String(amount)
-                        );
-                        setCustomAmount("");
-                      }}
-                      whileHover={{ y: -4 }}
-                      whileTap={{
-                        scale: 0.98,
-                      }}
-                    >
-                      ₹
-                      {amount.toLocaleString(
-                        "en-IN"
-                      )}
-                    </motion.button>
-                  );
-                })}
+                    return (
+                      <motion.button
+                        key={amount}
+                        className={`amount-card ${
+                          selected
+                            ? "selected"
+                            : ""
+                        }`}
+                        onClick={() => {
+                          setGiftAmount(
+                            String(amount)
+                          );
+                          setCustomAmount("");
+                        }}
+                        whileHover={{
+                          y: -4,
+                        }}
+                        whileTap={{
+                          scale: 0.98,
+                        }}
+                      >
+                        ₹
+                        {amount.toLocaleString(
+                          "en-IN"
+                        )}
+                      </motion.button>
+                    );
+                  }
+                )}
 
                 <motion.button
                   className={`amount-card ${
-                    giftAmount === "custom"
+                    giftAmount ===
+                    "custom"
                       ? "selected"
                       : ""
                   }`}
                   onClick={() =>
                     setGiftAmount("custom")
                   }
-                  whileHover={{ y: -4 }}
+                  whileHover={{
+                    y: -4,
+                  }}
                   whileTap={{
                     scale: 0.98,
                   }}
@@ -765,7 +786,9 @@ function CreateGift({ onBack }) {
                         type="number"
                         min="1"
                         placeholder="e.g. 1500"
-                        value={customAmount}
+                        value={
+                          customAmount
+                        }
                         onChange={(e) =>
                           setCustomAmount(
                             e.target.value
@@ -781,8 +804,8 @@ function CreateGift({ onBack }) {
                 <span>ⓘ</span>
 
                 <p>
-                  This is a prototype. No real
-                  payment or investment
+                  This is a prototype. No
+                  real payment or investment
                   transaction will occur.
                 </p>
               </div>
@@ -798,9 +821,13 @@ function CreateGift({ onBack }) {
 
               <button
                 className="continue-btn"
-                disabled={!canContinueAmount}
+                disabled={
+                  !canContinueAmount
+                }
                 onClick={() => {
-                  if (canContinueAmount) {
+                  if (
+                    canContinueAmount
+                  ) {
                     setStep(4);
                   }
                 }}
@@ -817,10 +844,21 @@ function CreateGift({ onBack }) {
           <motion.div
             key="investment"
             className="create-content"
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -25 }}
-            transition={{ duration: 0.25 }}
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
           >
             <div className="create-heading">
               <div className="eyebrow">
@@ -892,7 +930,9 @@ function CreateGift({ onBack }) {
                           investment.name
                         )
                       }
-                      whileHover={{ y: -4 }}
+                      whileHover={{
+                        y: -4,
+                      }}
                       whileTap={{
                         scale: 0.99,
                       }}
@@ -953,9 +993,13 @@ function CreateGift({ onBack }) {
 
               <button
                 className="continue-btn"
-                disabled={!selectedInvestment}
+                disabled={
+                  !selectedInvestment
+                }
                 onClick={() => {
-                  if (selectedInvestment) {
+                  if (
+                    selectedInvestment
+                  ) {
                     setStep(5);
                   }
                 }}
@@ -972,10 +1016,21 @@ function CreateGift({ onBack }) {
           <motion.div
             key="personalize"
             className="create-content personalize-content"
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -25 }}
-            transition={{ duration: 0.25 }}
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
           >
             <div className="create-heading">
               <div className="eyebrow">
@@ -1042,21 +1097,26 @@ function CreateGift({ onBack }) {
                       "Birthday",
                       "Celebration",
                       "Minimal",
-                    ].map((design) => (
-                      <button
-                        key={design}
-                        className={`design-option ${
-                          giftDesign === design
-                            ? "selected"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          setGiftDesign(design)
-                        }
-                      >
-                        {design}
-                      </button>
-                    ))}
+                    ].map(
+                      (design) => (
+                        <button
+                          key={design}
+                          className={`design-option ${
+                            giftDesign ===
+                            design
+                              ? "selected"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            setGiftDesign(
+                              design
+                            )
+                          }
+                        >
+                          {design}
+                        </button>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -1082,7 +1142,10 @@ function CreateGift({ onBack }) {
                   }}
                 >
                   <div className="mini-gift-top">
-                    <span>ACUBEL</span>
+                    <span>
+                      ACUBEL
+                    </span>
+
                     <span>
                       INVESTMENT GIFT
                     </span>
@@ -1092,7 +1155,9 @@ function CreateGift({ onBack }) {
                     ₹
                     {Number(
                       finalAmount || 0
-                    ).toLocaleString("en-IN")}
+                    ).toLocaleString(
+                      "en-IN"
+                    )}
                   </div>
 
                   <div className="mini-gift-recipient">
@@ -1136,7 +1201,8 @@ function CreateGift({ onBack }) {
 
                   <div className="mini-gift-from">
                     From{" "}
-                    {senderName || "You"}
+                    {senderName ||
+                      "You"}
                   </div>
                 </motion.div>
               </div>
@@ -1218,7 +1284,10 @@ function CreateGift({ onBack }) {
                       className={`final-gift-card design-${giftDesign.toLowerCase()}`}
                     >
                       <div className="final-gift-top">
-                        <span>ACUBEL</span>
+                        <span>
+                          ACUBEL
+                        </span>
+
                         <span>
                           INVESTMENT GIFT
                         </span>
@@ -1228,7 +1297,9 @@ function CreateGift({ onBack }) {
                         ₹
                         {Number(
                           finalAmount
-                        ).toLocaleString("en-IN")}
+                        ).toLocaleString(
+                          "en-IN"
+                        )}
                       </div>
 
                       <div className="final-gift-for">
@@ -1335,7 +1406,9 @@ function CreateGift({ onBack }) {
 
                     <button
                       className="generate-btn"
-                      onClick={generateGift}
+                      onClick={
+                        generateGift
+                      }
                     >
                       Generate Gift 🎁
                       <span>→</span>
@@ -1394,7 +1467,10 @@ function CreateGift({ onBack }) {
                     className={`final-gift-card compact design-${giftDesign.toLowerCase()}`}
                   >
                     <div className="final-gift-top">
-                      <span>ACUBEL</span>
+                      <span>
+                        ACUBEL
+                      </span>
+
                       <span>
                         INVESTMENT GIFT
                       </span>
@@ -1542,6 +1618,8 @@ function CreateGift({ onBack }) {
 
 function RecipientGift({ giftId, onBack }) {
   const [gift, setGift] = useState(null);
+  const [claimStep, setClaimStep] = useState(0);
+  const [claimEmail, setClaimEmail] = useState("");
 
   useEffect(() => {
     const savedGift = localStorage.getItem(
@@ -1559,6 +1637,7 @@ function RecipientGift({ giftId, onBack }) {
         giftId,
         recipientName: "Rahul",
         senderName: "Anup",
+        recipientEmail: "",
         occasion: "Birthday",
         amount: 1000,
         investment: "Nifty 50 ETF",
@@ -1568,6 +1647,26 @@ function RecipientGift({ giftId, onBack }) {
       });
     }
   }, [giftId]);
+
+  const startClaim = () => {
+    setClaimStep(1);
+  };
+
+  const completeClaim = () => {
+    const updatedGift = {
+      ...gift,
+      status: "CLAIMED",
+      claimedAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem(
+      `acubel-gift-${giftId}`,
+      JSON.stringify(updatedGift)
+    );
+
+    setGift(updatedGift);
+    setClaimStep(3);
+  };
 
   if (!gift) {
     return (
@@ -1606,140 +1705,514 @@ function RecipientGift({ giftId, onBack }) {
         </span>
       </header>
 
-      <div className="recipient-layout">
-        <motion.div
-          className="recipient-intro"
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-        >
-          <div className="recipient-icon">
-            🎁
-          </div>
+      <AnimatePresence mode="wait">
 
-          <div className="eyebrow">
-            YOU RECEIVED AN INVESTMENT GIFT
-          </div>
+        {/* GIFT VIEW */}
 
-          <h1>
-            Something meaningful
-            <span> came your way.</span>
-          </h1>
-
-          <p>
-            {gift.senderName} sent you an
-            investment gift for your{" "}
-            {gift.occasion.toLowerCase()}.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="recipient-card-area"
-          initial={{
-            opacity: 0,
-            y: 25,
-            scale: 0.97,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.7,
-            delay: 0.1,
-          }}
-        >
-          <div className="preview-label">
-            YOUR GIFT
-          </div>
-
-          <div
-            className={`recipient-gift-card design-${gift.design.toLowerCase()}`}
-          >
-            <div className="recipient-gift-top">
-              <span>ACUBEL</span>
-              <span>
-                INVESTMENT GIFT
-              </span>
-            </div>
-
-            <div className="recipient-gift-amount">
-              ₹
-              {Number(
-                gift.amount
-              ).toLocaleString("en-IN")}
-            </div>
-
-            <div className="recipient-gift-for">
-              <small>FOR</small>
-
-              <strong>
-                {gift.recipientName}
-              </strong>
-            </div>
-
-            <div className="recipient-gift-occasion">
-              🎁 {gift.occasion}
-            </div>
-
-            <div className="recipient-gift-investment">
-              <small>
-                INVESTMENT
-              </small>
-
-              <strong>
-                {gift.investment}
-              </strong>
-            </div>
-
-            <div className="recipient-gift-message">
-              “{gift.message}”
-            </div>
-
-            <div className="recipient-gift-from">
-              From {gift.senderName}
-            </div>
-          </div>
-
-          <motion.button
-            className="recipient-claim-btn"
-            whileHover={{ y: -3 }}
-            whileTap={{
-              scale: 0.98,
+        {claimStep === 0 && (
+          <motion.div
+            key="gift-view"
+            className="claim-layout"
+            initial={{
+              opacity: 0,
+              y: 20,
             }}
-            onClick={() =>
-              alert(
-                "Claim flow coming next. No real investment will occur."
-              )
-            }
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -15,
+            }}
           >
-            Claim Your Gift
-            <span>→</span>
-          </motion.button>
+            <div className="claim-intro">
+              <div className="recipient-icon">
+                🎁
+              </div>
 
-          <p className="recipient-disclaimer">
-            This is an ACUBEL prototype. No
-            real payment, securities transfer, or
-            investment is being processed.
-          </p>
-        </motion.div>
-      </div>
+              <div className="eyebrow">
+                YOU RECEIVED AN INVESTMENT GIFT
+              </div>
 
-      <button
-        className="back-btn recipient-back"
-        onClick={onBack}
-      >
-        ← Back to ACUBEL
-      </button>
+              <h1>
+                Something meaningful
+                <span> came your way.</span>
+              </h1>
+
+              <p>
+                {gift.senderName} sent you an investment
+                gift for your{" "}
+                {gift.occasion.toLowerCase()}.
+              </p>
+            </div>
+
+            <div className="claim-card-area">
+              <div className="preview-label">
+                YOUR GIFT
+              </div>
+
+              <div
+                className={`recipient-gift-card design-${gift.design.toLowerCase()}`}
+              >
+                <div className="recipient-gift-top">
+                  <span>ACUBEL</span>
+
+                  <span>
+                    INVESTMENT GIFT
+                  </span>
+                </div>
+
+                <div className="recipient-gift-amount">
+                  ₹
+                  {Number(
+                    gift.amount
+                  ).toLocaleString(
+                    "en-IN"
+                  )}
+                </div>
+
+                <div className="recipient-gift-for">
+                  <small>FOR</small>
+
+                  <strong>
+                    {gift.recipientName}
+                  </strong>
+                </div>
+
+                <div className="recipient-gift-occasion">
+                  🎁 {gift.occasion}
+                </div>
+
+                <div className="recipient-gift-investment">
+                  <small>
+                    INVESTMENT
+                  </small>
+
+                  <strong>
+                    {gift.investment}
+                  </strong>
+                </div>
+
+                <div className="recipient-gift-message">
+                  “{gift.message}”
+                </div>
+
+                <div className="recipient-gift-from">
+                  From {gift.senderName}
+                </div>
+              </div>
+
+              <motion.button
+                className="recipient-claim-btn"
+                whileHover={{
+                  y: -3,
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
+                onClick={startClaim}
+              >
+                Claim Your Gift
+                <span>→</span>
+              </motion.button>
+
+              <p className="recipient-disclaimer">
+                This is an ACUBEL prototype. No
+                real payment, securities transfer,
+                or investment is being processed.
+              </p>
+            </div>
+          </motion.div>
+        )}
+
+        {/* CLAIM START */}
+
+        {claimStep === 1 && (
+          <motion.div
+            key="claim-start"
+            className="claim-step-screen"
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+          >
+            <div className="claim-step-number">
+              01
+            </div>
+
+            <div className="eyebrow">
+              CLAIM YOUR GIFT
+            </div>
+
+            <h1>
+              Ready to make it yours?
+            </h1>
+
+            <p>
+              Your gift from{" "}
+              <strong>
+                {gift.senderName}
+              </strong>{" "}
+              is ready to be claimed.
+            </p>
+
+            <div className="claim-summary-card">
+              <div>
+                <span>GIFT VALUE</span>
+
+                <strong>
+                  ₹
+                  {Number(
+                    gift.amount
+                  ).toLocaleString(
+                    "en-IN"
+                  )}
+                </strong>
+              </div>
+
+              <div>
+                <span>INVESTMENT</span>
+
+                <strong>
+                  {gift.investment}
+                </strong>
+              </div>
+
+              <div>
+                <span>OCCASION</span>
+
+                <strong>
+                  {gift.occasion}
+                </strong>
+              </div>
+            </div>
+
+            <div className="claim-actions">
+              <button
+                className="back-btn"
+                onClick={() =>
+                  setClaimStep(0)
+                }
+              >
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                onClick={() =>
+                  setClaimStep(2)
+                }
+              >
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ACCOUNT */}
+
+        {claimStep === 2 && (
+          <motion.div
+            key="account"
+            className="claim-step-screen"
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+          >
+            <div className="claim-step-number">
+              02
+            </div>
+
+            <div className="eyebrow">
+              ACCOUNT
+            </div>
+
+            <h1>
+              Create your ACUBEL account.
+            </h1>
+
+            <p>
+              In the production version, your
+              investment account would be created
+              through the regulated financial partner.
+            </p>
+
+            <div className="claim-form">
+              <label>
+                Email
+                <span>*</span>
+
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={claimEmail}
+                  onChange={(e) =>
+                    setClaimEmail(
+                      e.target.value
+                    )
+                  }
+                />
+              </label>
+
+              <div className="claim-info">
+                <span>ⓘ</span>
+
+                <p>
+                  This prototype does not collect
+                  passwords, PAN, Aadhaar, bank details
+                  or other sensitive KYC information.
+                </p>
+              </div>
+            </div>
+
+            <div className="claim-actions">
+              <button
+                className="back-btn"
+                onClick={() =>
+                  setClaimStep(1)
+                }
+              >
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                disabled={!claimEmail.trim()}
+                onClick={() => {
+                  if (claimEmail.trim()) {
+                    setClaimStep(4);
+                  }
+                }}
+              >
+                Continue <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ONBOARDING */}
+
+        {claimStep === 4 && (
+          <motion.div
+            key="onboarding"
+            className="claim-step-screen"
+            initial={{
+              opacity: 0,
+              x: 25,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0,
+              x: -25,
+            }}
+          >
+            <div className="claim-step-number">
+              03
+            </div>
+
+            <div className="eyebrow">
+              INVESTMENT ONBOARDING
+            </div>
+
+            <h1>
+              Complete investment onboarding.
+            </h1>
+
+            <p>
+              The regulated financial partner will
+              handle the required account setup and
+              verification.
+            </p>
+
+            <div className="onboarding-checklist">
+              <div className="onboarding-item">
+                <span>✓</span>
+
+                <div>
+                  <strong>
+                    Account information
+                  </strong>
+
+                  <p>
+                    Required information is collected
+                    by the partner.
+                  </p>
+                </div>
+              </div>
+
+              <div className="onboarding-item">
+                <span>✓</span>
+
+                <div>
+                  <strong>
+                    Required verification
+                  </strong>
+
+                  <p>
+                    Applicable KYC and verification
+                    processes.
+                  </p>
+                </div>
+              </div>
+
+              <div className="onboarding-item">
+                <span>✓</span>
+
+                <div>
+                  <strong>
+                    Investment account setup
+                  </strong>
+
+                  <p>
+                    Your investment account is connected
+                    to the gift.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="claim-info">
+              <span>ⓘ</span>
+
+              <p>
+                Prototype mode: this onboarding is
+                simulated. No real KYC or investment
+                transaction occurs.
+              </p>
+            </div>
+
+            <div className="claim-actions">
+              <button
+                className="back-btn"
+                onClick={() =>
+                  setClaimStep(2)
+                }
+              >
+                ← Back
+              </button>
+
+              <button
+                className="continue-btn"
+                onClick={completeClaim}
+              >
+                Complete Onboarding
+                <span>→</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* CLAIMED */}
+
+        {claimStep === 3 && (
+          <motion.div
+            key="claimed"
+            className="claim-success"
+            initial={{
+              opacity: 0,
+              scale: 0.97,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+            }}
+          >
+            <div className="success-icon">
+              ✓
+            </div>
+
+            <div className="eyebrow">
+              GIFT CLAIMED
+            </div>
+
+            <h1>
+              Your gift has been claimed.
+            </h1>
+
+            <p>
+              The investment gift from{" "}
+              <strong>
+                {gift.senderName}
+              </strong>{" "}
+              is now marked as claimed.
+            </p>
+
+            <div className="claimed-card">
+              <div className="claimed-row">
+                <span>Gift value</span>
+
+                <strong>
+                  ₹
+                  {Number(
+                    gift.amount
+                  ).toLocaleString(
+                    "en-IN"
+                  )}
+                </strong>
+              </div>
+
+              <div className="claimed-row">
+                <span>Investment</span>
+
+                <strong>
+                  {gift.investment}
+                </strong>
+              </div>
+
+              <div className="claimed-row">
+                <span>Gifted by</span>
+
+                <strong>
+                  {gift.senderName}
+                </strong>
+              </div>
+
+              <div className="claimed-status">
+                ✓ CLAIMED — PROTOTYPE
+              </div>
+            </div>
+
+            <div className="claim-info">
+              <span>ⓘ</span>
+
+              <p>
+                In production, the regulated financial
+                partner would handle the applicable
+                account opening, KYC, execution and
+                custody processes.
+              </p>
+            </div>
+
+            <button
+              className="continue-btn"
+              onClick={onBack}
+            >
+              Back to ACUBEL
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.main>
   );
 }
@@ -1824,7 +2297,6 @@ function App() {
   return (
     <div className="app">
       <AnimatePresence mode="wait">
-
         {page === "home" ? (
           <LandingPage
             key="home"
@@ -1842,7 +2314,6 @@ function App() {
             onBack={goHome}
           />
         )}
-
       </AnimatePresence>
     </div>
   );
