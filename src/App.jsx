@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import "./App.css";
 
 const occasions = [
@@ -8,6 +9,7 @@ const occasions = [
   { icon: "❤️", name: "Anniversary" },
   { icon: "💍", name: "Wedding" },
   { icon: "🪔", name: "Festival" },
+  { icon: "✨", name: "Other" },
 ];
 
 const features = [
@@ -25,9 +27,9 @@ const features = [
   },
 ];
 
-function App() {
+function LandingPage({ onStart }) {
   return (
-    <div className="app">
+    <>
       <header className="navbar">
         <div className="brand">ACUBEL</div>
 
@@ -37,11 +39,12 @@ function App() {
           <a href="#partners">For Partners</a>
         </nav>
 
-        <button className="nav-cta">Send a Gift</button>
+        <button className="nav-cta" onClick={onStart}>
+          Send a Gift
+        </button>
       </header>
 
       <main>
-        {/* HERO */}
         <section className="hero">
           <div className="hero-content">
             <motion.div
@@ -57,12 +60,12 @@ function App() {
               </h1>
 
               <p className="hero-text">
-                Send stocks and ETFs as a simple digital gift —
-                meaningful today, built for the future.
+                Send stocks and ETFs as a simple digital gift — meaningful
+                today, built for the future.
               </p>
 
               <div className="hero-actions">
-                <button className="primary-btn">
+                <button className="primary-btn" onClick={onStart}>
                   Send an Investment Gift
                   <span>→</span>
                 </button>
@@ -90,7 +93,6 @@ function App() {
 
               <div className="gift-card">
                 <div className="gift-label">INVESTMENT GIFT</div>
-
                 <div className="gift-amount">₹1,000</div>
 
                 <div className="gift-to">
@@ -98,9 +100,7 @@ function App() {
                   <strong>Rahul</strong>
                 </div>
 
-                <div className="gift-occasion">
-                  🎂 Birthday
-                </div>
+                <div className="gift-occasion">🎂 Birthday</div>
 
                 <div className="gift-investment">
                   <span>Investment</span>
@@ -117,7 +117,6 @@ function App() {
           </motion.div>
         </section>
 
-        {/* HOW IT WORKS */}
         <section className="section" id="how-it-works">
           <div className="section-heading">
             <div className="eyebrow">HOW IT WORKS</div>
@@ -132,13 +131,16 @@ function App() {
               ["01", "Choose", "Pick an occasion, amount and investment."],
               ["02", "Personalize", "Add a message and make it yours."],
               ["03", "Send", "Share the gift through a link or WhatsApp."],
-              ["04", "Invest", "The recipient claims it through the partner platform."],
+              [
+                "04",
+                "Invest",
+                "The recipient claims it through the partner platform.",
+              ],
             ].map(([number, title, text]) => (
               <motion.div
                 className="step-card"
                 key={number}
                 whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
               >
                 <div className="step-number">{number}</div>
                 <h3>{title}</h3>
@@ -148,7 +150,6 @@ function App() {
           </div>
         </section>
 
-        {/* OCCASIONS */}
         <section className="section occasions-section" id="occasions">
           <div className="section-heading">
             <div className="eyebrow">FOR EVERY MILESTONE</div>
@@ -156,20 +157,21 @@ function App() {
           </div>
 
           <div className="occasion-grid">
-            {occasions.map((occasion) => (
-              <motion.div
-                className="occasion-card"
-                key={occasion.name}
-                whileHover={{ y: -6 }}
-              >
-                <div className="occasion-icon">{occasion.icon}</div>
-                <span>{occasion.name}</span>
-              </motion.div>
-            ))}
+            {occasions
+              .filter((occasion) => occasion.name !== "Other")
+              .map((occasion) => (
+                <motion.div
+                  className="occasion-card"
+                  key={occasion.name}
+                  whileHover={{ y: -6 }}
+                >
+                  <div className="occasion-icon">{occasion.icon}</div>
+                  <span>{occasion.name}</span>
+                </motion.div>
+              ))}
           </div>
         </section>
 
-        {/* FEATURES */}
         <section className="section">
           <div className="feature-grid">
             {features.map((feature, index) => (
@@ -189,7 +191,6 @@ function App() {
           </div>
         </section>
 
-        {/* B2B */}
         <section className="partner-section" id="partners">
           <div className="partner-content">
             <div className="eyebrow">FOR BROKERS & FINTECHS</div>
@@ -231,7 +232,6 @@ function App() {
         </section>
       </main>
 
-      {/* FOOTER */}
       <footer className="footer">
         <div>
           <div className="brand">ACUBEL</div>
@@ -242,6 +242,127 @@ function App() {
           <span>Prototype — no real investments are processed.</span>
         </div>
       </footer>
+    </>
+  );
+}
+
+function CreateGift({ onBack }) {
+  const [selectedOccasion, setSelectedOccasion] = useState("");
+
+  return (
+    <motion.main
+      className="create-gift-page"
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -40 }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="create-topbar">
+        <button className="create-logo" onClick={onBack}>
+          ACUBEL
+        </button>
+
+        <div className="step-counter">1 / 6</div>
+      </div>
+
+      <div className="progress-track">
+        <motion.div
+          className="progress-fill"
+          initial={{ width: 0 }}
+          animate={{ width: "16.66%" }}
+          transition={{ duration: 0.5 }}
+        />
+      </div>
+
+      <div className="create-content">
+        <div className="create-heading">
+          <div className="eyebrow">CREATE YOUR GIFT</div>
+
+          <h2>What are you celebrating?</h2>
+
+          <p>
+            Choose an occasion to make your investment gift feel personal.
+          </p>
+        </div>
+
+        <div className="create-occasions">
+          {occasions.map((occasion) => {
+            const isSelected = selectedOccasion === occasion.name;
+
+            return (
+              <motion.button
+                className={`create-occasion-card ${
+                  isSelected ? "selected" : ""
+                }`}
+                key={occasion.name}
+                onClick={() => setSelectedOccasion(occasion.name)}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="create-occasion-icon">{occasion.icon}</span>
+                <span>{occasion.name}</span>
+              </motion.button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="create-bottom">
+        <button className="back-btn" onClick={onBack}>
+          ← Back
+        </button>
+
+        <button
+          className="continue-btn"
+          disabled={!selectedOccasion}
+          onClick={() =>
+            selectedOccasion &&
+            alert(`Occasion selected: ${selectedOccasion}\nNext step coming next.`)
+          }
+        >
+          Continue <span>→</span>
+        </button>
+      </div>
+    </motion.main>
+  );
+}
+
+function App() {
+  const [page, setPage] = useState(
+    window.location.pathname === "/create-gift" ? "create" : "home"
+  );
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPage(window.location.pathname === "/create-gift" ? "create" : "home");
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const openCreateGift = () => {
+    window.history.pushState({}, "", "/create-gift");
+    setPage("create");
+    window.scrollTo(0, 0);
+  };
+
+  const goHome = () => {
+    window.history.pushState({}, "", "/");
+    setPage("home");
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <div className="app">
+      <AnimatePresence mode="wait">
+        {page === "home" ? (
+          <LandingPage key="home" onStart={openCreateGift} />
+        ) : (
+          <CreateGift key="create" onBack={goHome} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

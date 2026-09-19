@@ -694,3 +694,196 @@ h1 span,
     flex-direction: column;
   }
 }
+/* CREATE GIFT PAGE */
+
+.create-gift-page {
+  min-height: 100vh;
+  width: min(1000px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 30px 0 45px;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.create-logo {
+  padding: 0;
+  background: transparent;
+  color: #e0b85f;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.step-counter {
+  color: #8792a2;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.progress-track {
+  height: 4px;
+  margin-top: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: #e0b85f;
+}
+
+.create-content {
+  flex: 1;
+  padding: 100px 0 80px;
+}
+
+.create-heading {
+  max-width: 650px;
+}
+
+.create-heading h2 {
+  font-size: clamp(2.7rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  color: #f7f4ed;
+}
+
+.create-heading p {
+  margin-top: 20px;
+  max-width: 600px;
+  color: #8e9aaa;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.create-occasions {
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.create-occasion-card {
+  min-height: 155px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #c5ccd6;
+  text-align: left;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.create-occasion-card:hover {
+  border-color: rgba(224, 184, 95, 0.35);
+  background: rgba(224, 184, 95, 0.045);
+}
+
+.create-occasion-card.selected {
+  border-color: #e0b85f;
+  background: rgba(224, 184, 95, 0.08);
+  box-shadow: 0 0 0 1px rgba(224, 184, 95, 0.15);
+  color: #f4e9ce;
+}
+
+.create-occasion-icon {
+  font-size: 2rem;
+}
+
+.create-occasion-card > span:last-child {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.create-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.back-btn {
+  padding: 12px 4px;
+  background: transparent;
+  color: #8792a2;
+  font-weight: 600;
+}
+
+.back-btn:hover {
+  color: #f6f3eb;
+}
+
+.continue-btn {
+  min-width: 145px;
+  padding: 14px 20px;
+  border-radius: 999px;
+  background: #e0b85f;
+  color: #09111c;
+  font-weight: 700;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.continue-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.continue-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+  .create-occasions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .create-content {
+    padding: 70px 0 60px;
+  }
+}
+
+@media (max-width: 520px) {
+  .create-gift-page {
+    width: min(100% - 28px, 1000px);
+  }
+
+  .create-occasions {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .create-occasion-card {
+    min-height: 130px;
+    padding: 18px;
+  }
+
+  .create-bottom {
+    position: sticky;
+    bottom: 0;
+    padding: 18px 0;
+    background: rgba(7, 17, 31, 0.94);
+    backdrop-filter: blur(14px);
+  }
+}
